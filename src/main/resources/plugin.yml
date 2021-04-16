@@ -1,0 +1,9 @@
+name: EasyChannels
+description: Chat channels, without the fuss
+author: DintyB
+main: io.github.dinty1.easychannels.EasyChannels
+version: ${project.version}
+api-version: 1.16
+load: POSTWORLD
+softdepend:
+  - DiscordSRV
