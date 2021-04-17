@@ -1,0 +1,36 @@
+# EasyChannels
+# Chat channels, without the fuss
+#
+# If you have any issues, please join our Discord server at https://discord.gg/BCVHCzd77R or open an issue on GitHub (https://github.com/Dinty1/EasyChannels)
+#
+# Please don't touch this
+config-version: ${project.version}
+#
+channels:
+# Channels
+# The options for channels are as follows:
+#
+# commands: [s, staffchat] - The commands that can be used to access the channel.
+#
+# permission: staffchannel - The permission that users must have to use/read this channel. The full permission will be easychannels.<permission>.
+#                            Existing permission nodes may not be used.
+#
+# format: "&5[Staff] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
+#                                             - %username% - The player's username
+#                                             - %displayname% - The player's displayname
+#                                             - %prefix% - The player's prefix
+#                                             - %suffix% - The player's suffix
+#                                             - Any PAPI placeholders
+#
+# discord-format: "&5&o[Staff] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
+#                                                     If this option is not specified, messages will not be sent or received from Discord.
+#                                                     Available placeholders:
+#                                                   - %name% - The user's displayname
+#                                                   - %username% - The user's username
+#
+# An example channel is shown below.
+  staff:
+    commands: [s, staff]
+    permission: staffchannel
+    format: "&5[Staff] &7%username%: &r%message%"
+    discord-format: "&5&o[Staff] &7%name%: &r%message%"
