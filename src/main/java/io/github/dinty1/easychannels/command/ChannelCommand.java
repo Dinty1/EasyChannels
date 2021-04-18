@@ -1,6 +1,6 @@
-package io.github.dinty1.easychannels.commands;
+package io.github.dinty1.easychannels.command;
 
-import io.github.dinty1.easychannels.managers.Channel;
+import io.github.dinty1.easychannels.manager.Channel;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -24,6 +24,7 @@ public class ChannelCommand extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
+        sender.sendMessage("hi");
         return true;
     }
 }

@@ -1,6 +1,8 @@
-package io.github.dinty1.easychannels.managers;
+package io.github.dinty1.easychannels.manager;
 
 import io.github.dinty1.easychannels.EasyChannels;
+import io.github.dinty1.easychannels.command.ChannelCommand;
+import io.github.dinty1.easychannels.util.CommandUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -24,8 +26,14 @@ public class ChannelManager {
             // TODO channel validation
             Channel channel = new Channel(i);
             channels.put(i.get("name").toString(), channel);
-            EasyChannels.info("Loaded channel " + channel.getDiscordFormat());
+            EasyChannels.info("Loaded channel " + channel.getName());
             // Register commands
+            try {
+                CommandUtil.registerCommand(new ChannelCommand(channel, channel.getCommands()), EasyChannels.getPlugin(EasyChannels.class));
+                EasyChannels.info("Registered channel command " + channel.getCommands().get(0));
+            } catch (ReflectiveOperationException e) {
+                EasyChannels.error("An error occured while attempting to register the channel command " + channel.getCommands().get(0), e);
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package io.github.dinty1.easychannels.listeners;
+package io.github.dinty1.easychannels.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

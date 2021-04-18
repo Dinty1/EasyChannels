@@ -1,4 +1,4 @@
-package io.github.dinty1.easychannels.managers;
+package io.github.dinty1.easychannels.manager;
 
 import lombok.Getter;
 
