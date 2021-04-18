@@ -16,20 +16,20 @@ channels:
 #                            Existing permission nodes may not be used.
 #
 # format: "&5[Staff] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
-#                                             - %username% - The player's username
-#                                             - %displayname% - The player's displayname
-#                                             - %prefix% - The player's prefix
-#                                             - %suffix% - The player's suffix
-#                                             - Any PAPI placeholders
+#                                               - %username% - The player's username
+#                                               - %displayname% - The player's displayname
+#                                               - %prefix% - The player's prefix
+#                                               - %suffix% - The player's suffix
+#                                               - Any PAPI placeholders
 #
 # discord-format: "&5&o[Staff] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
-#                                                     If this option is not specified, messages will not be sent or received from Discord.
-#                                                     Available placeholders:
-#                                                   - %name% - The user's displayname
-#                                                   - %username% - The user's username
+#                                                       If this option is not specified, messages will not be sent or received from Discord.
+#                                                       Available placeholders:
+#                                                     - %name% - The user's displayname
+#                                                     - %username% - The user's username
 #
 # An example channel is shown below.
-  staff:
+  - name: Staff
     commands: [s, staff]
     permission: staffchannel
     format: "&5[Staff] &7%username%: &r%message%"
