@@ -1,6 +1,9 @@
 package io.github.dinty1.easychannels.manager;
 
+import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,20 @@ public class Channel {
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
     }
 
-    public void sendMessage() {
+    public void sendMessage(String message, Player author) {
+        if (this.getPermission() == null) {
+            Bukkit.broadcastMessage(format(message, author));
+        } else {
+            Bukkit.broadcast(format(message, author), this.getPermission());
+        }
+    }
 
+    private String format(String message, Player author) {
+        String output = MessageUtil.translateCodes(this.getFormat()
+                .replace("%username%", author.getName())
+                .replace("%displayname%", author.getDisplayName())
+                .replace("%message%", message)
+        );
+        return output;
     }
 }

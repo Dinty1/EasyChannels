@@ -5,16 +5,9 @@ main: io.github.dinty1.easychannels.EasyChannels
 version: ${project.version}
 api-version: 1.16
 load: POSTWORLD
-softdepend:
-  - DiscordSRV
-  - PlaceholderAPI
+softdepend: [DiscordSRV, PlaceholderAPI]
 
 commands:
-  globalchat:
-    aliases: [g]
-    usage: |-
-      /<command> - Return to the global channel
-      /<command> <message> - Send a message to the global channel
   easychannels:
     usage: |-
       /<command> reload - Reloads the plugin's configuration.

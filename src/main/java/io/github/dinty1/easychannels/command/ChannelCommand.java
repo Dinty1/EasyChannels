@@ -4,11 +4,13 @@ import io.github.dinty1.easychannels.manager.Channel;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ChannelCommand extends BukkitCommand {
+    private Channel channel;
 
     public ChannelCommand(Channel channel, List<String> commands) {
         super(commands.get(0));// Register command with the first alias
@@ -16,15 +18,21 @@ public class ChannelCommand extends BukkitCommand {
         this.description = "Send a message to/toggle automatic chatting in the " + channel.getName() + " channel.";
         commands.remove(0);// Remove the already registered command so that we can add everything else as aliases
         this.setAliases(commands);
-        if (channel.getPermission() != null) {
-            this.setPermission(channel.getPermission());
-            this.setPermissionMessage(ChatColor.RED + "You do not have permission to access this channel.");
+        if (this.getPermission() != null) {
+            this.setPermission(this.getPermission());
         }
+        this.channel = channel; // Save channel object for later use
     }
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
-        sender.sendMessage("hi");
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "Only players can use chat channels.");
+        } else if (this.channel.getPermission() != null && !sender.hasPermission(this.channel.getPermission())) {
+            sender.sendMessage(ChatColor.RED + "You do not have access to this channel.");
+        } else {
+            channel.sendMessage(String.join(" ", args), (Player) sender);
+        }
         return true;
     }
 }
