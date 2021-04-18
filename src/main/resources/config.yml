@@ -29,8 +29,8 @@ channels:
 #                                                     - %username% - The user's username
 #
 # An example channel is shown below.
-  - name: Staff
-    commands: [s, staff]
+  - name: staff
+    commands: [s, staffchat, sc]
     permission: staffchannel
     format: "&5[Staff] &7%username%: &r%message%"
     discord-format: "&5&o[Staff] &7%name%: &r%message%"

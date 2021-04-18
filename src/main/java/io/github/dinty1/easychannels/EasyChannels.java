@@ -6,14 +6,15 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EasyChannels extends JavaPlugin {
-    @Getter private ChannelManager channelManager;
+    @Getter private static ChannelManager channelManager = new ChannelManager();
 
     @Override
     public void onEnable() {
         // First thing's first, save the config
         this.saveDefaultConfig();
 
-        this.channelManager = new ChannelManager(ConfigUtil.getChannels(this));
+        // Register stuff
+        getChannelManager().registerChannelsAndCommands();
     }
 
     @Override

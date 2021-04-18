@@ -13,26 +13,19 @@ import java.util.Map;
 
 
 public class ChannelManager {
-    private List<Map<?, ?>> channelConfig;
+
     public @Getter Map<String, Channel> channels = new HashMap<>();
     public @Getter Map<String, String> channelCommands = new HashMap<>();
     @Getter(AccessLevel.PRIVATE) private HashMap<Player, String> playerAutoChannels = new HashMap<>();
 
-    public ChannelManager(@NotNull List<Map<?, ?>> channelConfig) {
-        this.channelConfig = channelConfig;
-    }
-
-    public void registerChannelsAndCommands() {
+    public void registerChannelsAndCommands(@NotNull List<Map<?, ?>> channelConfig) {
         // Register channels
-        for (final Map i : this.channelConfig) {
+        for (final Map i : channelConfig) {
             // TODO channel validation
             Channel channel = new Channel(i);
             channels.put(i.get("name").toString(), channel);
             EasyChannels.info("Loaded channel " + channel.getDiscordFormat());
             // Register commands
-            for (final String command : channel.getCommands()) {
-
-            }
         }
     }
 
