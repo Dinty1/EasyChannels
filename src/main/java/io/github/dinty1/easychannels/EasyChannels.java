@@ -1,5 +1,6 @@
 package io.github.dinty1.easychannels;
 
+import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
 import io.github.dinty1.easychannels.manager.ChannelManager;
 import io.github.dinty1.easychannels.util.ConfigUtil;
 import lombok.Getter;
@@ -16,6 +17,8 @@ public class EasyChannels extends JavaPlugin {
 
         // Register stuff
         getChannelManager().registerChannelsAndCommands(ConfigUtil.getChannels(this));
+
+        getServer().getPluginManager().registerEvents(new AsyncPlayerChatEventListener(), this);
     }
 
     @Override

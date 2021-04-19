@@ -18,7 +18,7 @@ public class ChannelManager {
 
     public @Getter Map<String, Channel> channels = new HashMap<>();
     public @Getter Map<String, String> channelCommands = new HashMap<>();
-    @Getter(AccessLevel.PRIVATE) private HashMap<Player, String> playerAutoChannels = new HashMap<>();
+    @Getter(AccessLevel.PRIVATE) private HashMap<String, String> playerAutoChannels = new HashMap<>();
 
     public void registerChannelsAndCommands(@NotNull List<Map<?, ?>> channelConfig) {
         // Register channels
@@ -39,5 +39,13 @@ public class ChannelManager {
 
     public @Nullable Channel getChannel(@NotNull String name) {
         return channels.get(name);
+    }
+
+    public void setAutoChannel(Player player, Channel channel) {
+        this.getPlayerAutoChannels().put(player.getName(), channel.getName());
+    }
+
+    public @Nullable Channel getAutoChannel(Player player) {
+        return this.getChannel(this.getPlayerAutoChannels().get(player.getName()));
     }
 }

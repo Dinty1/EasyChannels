@@ -1,5 +1,6 @@
 package io.github.dinty1.easychannels.command;
 
+import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.manager.Channel;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -30,6 +31,9 @@ public class ChannelCommand extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + "Only players can use chat channels.");
         } else if (this.channel.getPermission() != null && !sender.hasPermission(this.channel.getPermission())) {
             sender.sendMessage(ChatColor.RED + "You do not have access to this channel.");
+        } else if (args.length == 0) {
+            EasyChannels.getChannelManager().setAutoChannel((Player) sender, this.channel);
+            sender.sendMessage(ChatColor.BLUE + "You are now automatically chatting in the \"" + this.channel.getName() + "\" channel.");
         } else {
             channel.sendMessage(String.join(" ", args), (Player) sender);
         }
