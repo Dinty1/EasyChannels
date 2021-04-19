@@ -18,7 +18,7 @@ public class Channel {
     public Channel(Map channelInfo) {
         this.name = channelInfo.get("name").toString();
         this.commands = (List<String>) channelInfo.get("commands");
-        this.permission = channelInfo.get("permission") != null ? channelInfo.get("permission").toString() : null;
+        this.permission = channelInfo.get("permission") != null ? "easychannels." + channelInfo.get("permission").toString() : null;
         this.format = channelInfo.get("format").toString();
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
     }

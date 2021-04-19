@@ -8,6 +8,11 @@ load: POSTWORLD
 softdepend: [DiscordSRV, PlaceholderAPI]
 
 commands:
+  globalchat:
+    aliases: [g]
+    usage: |-
+      /<command> - Return to the global channel
+      /<command> <message> - Send a message to the global channel
   easychannels:
     usage: |-
       /<command> reload - Reloads the plugin's configuration.
