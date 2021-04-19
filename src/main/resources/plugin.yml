@@ -5,6 +5,7 @@ main: io.github.dinty1.easychannels.EasyChannels
 version: ${project.version}
 api-version: 1.16
 load: POSTWORLD
+depend: [Vault]
 softdepend: [DiscordSRV, PlaceholderAPI]
 
 commands:
