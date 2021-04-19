@@ -1,5 +1,6 @@
 package io.github.dinty1.easychannels.manager;
 
+import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Channel {
     @Getter private String name;
@@ -32,10 +34,12 @@ public class Channel {
     }
 
     private String format(String message, Player author) {
-        String output = MessageUtil.translateCodes(this.getFormat()
-                .replace("%username%", author.getName())
-                .replace("%displayname%", author.getDisplayName())
-                .replace("%message%", message)
+        String output = MessageUtil.translateCodes(
+                MessageUtil.replacePlaceholders(
+                        this.getFormat(),
+                        message,
+                        author
+                )
         );
         return output;
     }

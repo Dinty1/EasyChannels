@@ -3,6 +3,7 @@ package io.github.dinty1.easychannels.manager;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.command.ChannelCommand;
 import io.github.dinty1.easychannels.util.CommandUtil;
+import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class ChannelManager {
@@ -47,5 +49,16 @@ public class ChannelManager {
 
     public @Nullable Channel getAutoChannel(Player player) {
         return this.getChannel(this.getPlayerAutoChannels().get(player.getName()));
+    }
+
+    public String getGlobalChannelFormat(@NotNull String message, @NotNull Player author) {
+        return MessageUtil.translateCodes(
+                MessageUtil.replacePlaceholders(
+                        Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString("global-format")),
+                        message,
+                        author
+                )
+        );
+
     }
 }

@@ -8,6 +8,20 @@
 # Please don't touch this
 config-version: ${project.version}
 #
+# Whether to modify the global chat format (keep this disabled if you modify chat with another chat plugin)
+modify-global-chat: false
+#
+# The global chat format
+#
+# Available placeholders:
+# - %username% - The player's username
+# - %displayname% - The player's displayname
+# - %message% - The message
+# - %prefix% - The player's prefix
+# - %suffix% - The player's suffix
+# - Any PAPI placeholders
+global-format: "%prefix%&7 %username%&r: %message%"
+#
 channels:
 # Channels
 # The options for channels are as follows:
