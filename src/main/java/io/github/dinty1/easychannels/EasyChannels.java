@@ -1,5 +1,6 @@
 package io.github.dinty1.easychannels;
 
+import io.github.dinty1.easychannels.command.GlobalChatCommand;
 import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
 import io.github.dinty1.easychannels.manager.ChannelManager;
 import io.github.dinty1.easychannels.util.ConfigUtil;
@@ -22,6 +23,8 @@ public class EasyChannels extends JavaPlugin {
         getChannelManager().registerChannelsAndCommands(ConfigUtil.getChannels(this));
 
         getServer().getPluginManager().registerEvents(new AsyncPlayerChatEventListener(), this);
+
+        getCommand("globalchat").setExecutor(new GlobalChatCommand());
 
         // Set up vault thing
         setupChat();
