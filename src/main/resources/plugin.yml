@@ -4,7 +4,7 @@ author: DintyB
 main: io.github.dinty1.easychannels.EasyChannels
 version: ${project.version}
 api-version: 1.16
-load: POSTWORLD
+load: STARTUP
 depend: [Vault]
 softdepend: [DiscordSRV, PlaceholderAPI]
 
