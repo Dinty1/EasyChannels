@@ -44,7 +44,6 @@ public class ChannelManager {
     }
 
     public void setAutoChannel(Player player, Channel channel) {
-        EasyChannels.info("setting auto channel to " + channel);
         if (channel == null) return; // Ignore GlobalChatCommand trying to set the player back to the global channel
         this.getPlayerAutoChannels().put(player.getName(), channel.getName());
     }
