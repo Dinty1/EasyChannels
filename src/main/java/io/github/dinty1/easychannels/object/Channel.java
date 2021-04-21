@@ -1,8 +1,8 @@
 package io.github.dinty1.easychannels.object;
 
 import github.scarsz.discordsrv.DiscordSRV;
-import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import github.scarsz.discordsrv.dependencies.emoji.EmojiParser;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
@@ -21,13 +21,19 @@ public class Channel {
     @Getter @Nullable private String permission;
     @Getter private String format;
     @Getter @Nullable private String discordFormat;
+    private boolean isInvalid = true;
 
-    public Channel(Map channelInfo) {
+    public Channel(Map channelInfo) throws InvalidChannelException {
         this.name = channelInfo.get("name").toString();
         this.commands = (List<String>) channelInfo.get("commands");
         this.permission = channelInfo.get("permission") != null ? "easychannels." + channelInfo.get("permission").toString() : null;
         this.format = channelInfo.get("format").toString();
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
+        if (this.name == null || this.commands == null || this.format == null) {
+            throw new InvalidChannelException("One of the required channel options is null.");
+        } else if (this.name.equals("global")) {
+            throw new InvalidChannelException("Custom channels cannot be named \"global\"");
+        }
     }
 
     public void sendMessage(String message, Player author) {

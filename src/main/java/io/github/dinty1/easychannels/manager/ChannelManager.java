@@ -3,6 +3,7 @@ package io.github.dinty1.easychannels.manager;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.command.ChannelCommand;
 import io.github.dinty1.easychannels.object.Channel;
+import io.github.dinty1.easychannels.object.InvalidChannelException;
 import io.github.dinty1.easychannels.util.CommandUtil;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.AccessLevel;
@@ -26,17 +27,20 @@ public class ChannelManager {
     public void registerChannelsAndCommands(@NotNull List<Map<?, ?>> channelConfig) {
         // Register channels
         for (final Map i : channelConfig) {
-            // TODO channel validation
-            Channel channel = new Channel(i);
-            channels.put(i.get("name").toString(), channel);
-            EasyChannels.info("Loaded channel " + channel.getName());
-            // Register commands
             try {
+                Channel channel = new Channel(i);
+                channels.put(i.get("name").toString(), channel);
+                EasyChannels.info("Loaded channel " + channel.getName());
+                // Register commands
                 CommandUtil.registerCommand(new ChannelCommand(channel, channel.getCommands()), EasyChannels.getPlugin(EasyChannels.class));
                 EasyChannels.info("Registered channel command " + channel.getCommands().get(0));
+
+            } catch (InvalidChannelException e) {
+                EasyChannels.error(e.getMessage(), e);
             } catch (ReflectiveOperationException e) {
-                EasyChannels.error("An error occured while attempting to register the channel command " + channel.getCommands().get(0), e);
+                EasyChannels.error("An error occured while attempting to register a channel command.", e);
             }
+
         }
     }
 
