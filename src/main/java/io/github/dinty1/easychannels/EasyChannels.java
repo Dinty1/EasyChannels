@@ -4,6 +4,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import io.github.dinty1.easychannels.command.GlobalChatCommand;
 import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
 import io.github.dinty1.easychannels.listener.DiscordGuildMessagePreProcessListener;
+import io.github.dinty1.easychannels.listener.PlayerLeaveListener;
 import io.github.dinty1.easychannels.listener.PluginEnableListener;
 import io.github.dinty1.easychannels.manager.ChannelManager;
 import io.github.dinty1.easychannels.util.ConfigUtil;
@@ -28,6 +29,7 @@ public class EasyChannels extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new AsyncPlayerChatEventListener(), this);
         getServer().getPluginManager().registerEvents(new PluginEnableListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
 
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
 
