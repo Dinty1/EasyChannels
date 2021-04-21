@@ -56,9 +56,6 @@ public class Channel {
         String text = EmojiParser.parseToAliases(message.getContentStripped());
         String format = this.getDiscordFormat();
         if (format == null || format.equals("")) return; // No format set so go no further
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            text = PlaceholderAPI.setPlaceholders(null, text);
-        }
         text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
         text = MessageUtil.translateCodes(text);
         if (this.getPermission() == null) {
@@ -70,14 +67,10 @@ public class Channel {
     }
 
     private String format(String message, Player author) {
-        String papiParsed = "";
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            papiParsed = PlaceholderAPI.setPlaceholders(author, message);
-        }
         return MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         this.getFormat(),
-                        papiParsed,
+                        message,
                         author
                 )
         );

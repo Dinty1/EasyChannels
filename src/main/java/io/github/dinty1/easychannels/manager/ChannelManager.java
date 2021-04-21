@@ -64,10 +64,6 @@ public class ChannelManager {
     }
 
     public String getGlobalChannelFormat(@NotNull String message, @NotNull Player author) {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            message = PlaceholderAPI.setPlaceholders(author, message);
-            EasyChannels.info(message);
-        }
         return MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString("global-format")),
