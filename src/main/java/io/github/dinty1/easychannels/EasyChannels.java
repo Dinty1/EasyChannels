@@ -1,6 +1,7 @@
 package io.github.dinty1.easychannels;
 
 import github.scarsz.discordsrv.DiscordSRV;
+import io.github.dinty1.easychannels.command.ChannelListCommand;
 import io.github.dinty1.easychannels.command.GlobalChatCommand;
 import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
 import io.github.dinty1.easychannels.listener.DiscordGuildMessagePreProcessListener;
@@ -32,6 +33,7 @@ public class EasyChannels extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
 
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
+        getCommand("channels").setExecutor(new ChannelListCommand());
 
         // Set up vault thing
         setupChat();

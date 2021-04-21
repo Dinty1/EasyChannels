@@ -17,3 +17,12 @@ commands:
   easychannels:
     usage: |-
       /<command> reload - Reloads the plugin's configuration.
+  channels:
+    aliases: [channellist, chlist, listchannels]
+    permission: easychannels.listchannels
+    description: Lists all channels that the player has access to.
+
+permissions:
+  easychannels.listchannels:
+    default: true
+
