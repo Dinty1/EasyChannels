@@ -48,6 +48,10 @@ public class Channel {
                 DiscordSRV.getPlugin().processChatMessage(author, message, this.getName(), false);
             });
         }
+
+        if (this.getPermission() != null) {
+            Bukkit.getConsoleSender().sendMessage(format(message, author));
+        }
     }
 
     public void sendMessageFromDiscord(@NotNull Message message) {
@@ -60,6 +64,10 @@ public class Channel {
             Bukkit.broadcastMessage(text);
         } else {
             Bukkit.broadcast(text, this.getPermission());
+        }
+
+        if (this.getPermission() != null) {
+            Bukkit.getConsoleSender().sendMessage(text);
         }
     }
 
