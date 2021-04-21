@@ -41,16 +41,13 @@ public class Channel {
             Bukkit.broadcastMessage(format(message, author));
         } else {
             Bukkit.broadcast(format(message, author), this.getPermission());
+            Bukkit.getConsoleSender().sendMessage(format(message, author));
         }
 
         if (EasyChannels.discordSrvHookEnabled()) {
             Bukkit.getScheduler().runTaskAsynchronously(EasyChannels.getPlugin(), () -> {
                 DiscordSRV.getPlugin().processChatMessage(author, message, this.getName(), false);
             });
-        }
-
-        if (this.getPermission() != null) {
-            Bukkit.getConsoleSender().sendMessage(format(message, author));
         }
     }
 
@@ -64,9 +61,6 @@ public class Channel {
             Bukkit.broadcastMessage(text);
         } else {
             Bukkit.broadcast(text, this.getPermission());
-        }
-
-        if (this.getPermission() != null) {
             Bukkit.getConsoleSender().sendMessage(text);
         }
     }
