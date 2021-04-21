@@ -68,8 +68,6 @@ public class ChannelManager {
             message = PlaceholderAPI.setPlaceholders(author, message);
             EasyChannels.info(message);
         }
-
-        EasyChannels.info(message);
         return MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString("global-format")),

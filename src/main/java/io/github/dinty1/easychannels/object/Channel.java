@@ -70,16 +70,16 @@ public class Channel {
     }
 
     private String format(String message, Player author) {
+        String papiParsed = "";
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            message = PlaceholderAPI.setPlaceholders(author, message);
+            papiParsed = PlaceholderAPI.setPlaceholders(author, message);
         }
-        String output = MessageUtil.translateCodes(
+        return MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         this.getFormat(),
-                        message,
+                        papiParsed,
                         author
                 )
         );
-        return output;
     }
 }
