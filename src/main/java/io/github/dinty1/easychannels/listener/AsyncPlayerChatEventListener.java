@@ -1,7 +1,7 @@
 package io.github.dinty1.easychannels.listener;
 
 import io.github.dinty1.easychannels.EasyChannels;
-import io.github.dinty1.easychannels.manager.Channel;
+import io.github.dinty1.easychannels.object.Channel;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

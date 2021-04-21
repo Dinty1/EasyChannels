@@ -1,7 +1,10 @@
 package io.github.dinty1.easychannels;
 
+import github.scarsz.discordsrv.DiscordSRV;
 import io.github.dinty1.easychannels.command.GlobalChatCommand;
 import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
+import io.github.dinty1.easychannels.listener.DiscordGuildMessagePreProcessListener;
+import io.github.dinty1.easychannels.listener.PluginEnableListener;
 import io.github.dinty1.easychannels.manager.ChannelManager;
 import io.github.dinty1.easychannels.util.ConfigUtil;
 import lombok.Getter;
@@ -13,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 public class EasyChannels extends JavaPlugin {
     @Getter private static ChannelManager channelManager = new ChannelManager();
     @Getter private static Chat chat;
+    private static boolean discordSrvHook = false;
 
     @Override
     public void onEnable() {
@@ -23,6 +27,7 @@ public class EasyChannels extends JavaPlugin {
         getChannelManager().registerChannelsAndCommands(ConfigUtil.getChannels(this));
 
         getServer().getPluginManager().registerEvents(new AsyncPlayerChatEventListener(), this);
+        getServer().getPluginManager().registerEvents(new PluginEnableListener(), this);
 
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
 
@@ -41,7 +46,7 @@ public class EasyChannels extends JavaPlugin {
 
     public static void error(String message, @Nullable Exception e) {
         EasyChannels.getPlugin(EasyChannels.class).getLogger().severe(message);
-        if(e != null) {
+        if (e != null) {
             e.printStackTrace();
         }
     }
@@ -53,5 +58,16 @@ public class EasyChannels extends JavaPlugin {
     public void setupChat() {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
         chat = rsp.getProvider();
+    }
+
+    public static boolean discordSrvHookEnabled() {
+        return discordSrvHook;
+    }
+
+    public static void setDiscordSrvHookEnabled(boolean enabled) {
+        discordSrvHook = enabled;
+        if (enabled) {
+            DiscordSRV.api.subscribe(new DiscordGuildMessagePreProcessListener());
+        }
     }
 }

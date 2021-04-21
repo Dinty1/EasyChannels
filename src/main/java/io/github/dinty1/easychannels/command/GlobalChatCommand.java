@@ -1,7 +1,7 @@
 package io.github.dinty1.easychannels.command;
 
 import io.github.dinty1.easychannels.EasyChannels;
-import io.github.dinty1.easychannels.manager.Channel;
+import io.github.dinty1.easychannels.object.Channel;
 import io.github.dinty1.easychannels.manager.ChannelManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

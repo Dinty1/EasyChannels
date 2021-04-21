@@ -20,7 +20,7 @@ modify-global-chat: false
 # - %prefix% - The player's prefix
 # - %suffix% - The player's suffix
 # - Any PAPI placeholders
-global-format: "%prefix%&7 %username%&r: %message%"
+global-format: "%prefix%&7 %username%&:&r %message%"
 #
 channels:
 # Channels
@@ -44,6 +44,7 @@ channels:
 #                                                       Available placeholders:
 #                                                     - %name% - The user's displayname
 #                                                     - %username% - The user's username
+#                                                     - %tag% - The user's full tag
 #                                                     - %message% - The message
 #
 # An example channel is shown below.

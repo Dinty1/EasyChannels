@@ -1,12 +1,18 @@
-package io.github.dinty1.easychannels.manager;
+package io.github.dinty1.easychannels.object;
 
+import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
+import github.scarsz.discordsrv.dependencies.emoji.EmojiParser;
+import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Channel {
     @Getter private String name;
@@ -28,6 +34,25 @@ public class Channel {
             Bukkit.broadcastMessage(format(message, author));
         } else {
             Bukkit.broadcast(format(message, author), this.getPermission());
+        }
+
+        if (EasyChannels.discordSrvHookEnabled()) {
+            Bukkit.getScheduler().runTaskAsynchronously(EasyChannels.getPlugin(), () -> {
+                DiscordSRV.getPlugin().processChatMessage(author, message, this.getName(), false);
+            });
+        }
+    }
+
+    public void sendMessageFromDiscord(@NotNull Message message) {
+        String text = EmojiParser.parseToAliases(message.getContentStripped());
+        String format = this.getDiscordFormat();
+        if (format == null || format.equals("")) return; // No format set so go no further
+        text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
+        text = MessageUtil.translateCodes(text);
+        if (this.getPermission() == null) {
+            Bukkit.broadcastMessage(text);
+        } else {
+            Bukkit.broadcast(text, this.getPermission());
         }
     }
 
