@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,9 @@ import java.util.Objects;
 public class Channel {
     @Getter private String name;
     @Getter private List<String> commands;
-    @Getter private String permission;
+    @Getter @Nullable private String permission;
     @Getter private String format;
-    @Getter private String discordFormat;
+    @Getter @Nullable private String discordFormat;
 
     public Channel(Map channelInfo) {
         this.name = channelInfo.get("name").toString();
