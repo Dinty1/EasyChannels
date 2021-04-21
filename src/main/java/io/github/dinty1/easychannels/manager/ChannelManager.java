@@ -8,6 +8,8 @@ import io.github.dinty1.easychannels.util.CommandUtil;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,6 +64,12 @@ public class ChannelManager {
     }
 
     public String getGlobalChannelFormat(@NotNull String message, @NotNull Player author) {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            message = PlaceholderAPI.setPlaceholders(author, message);
+            EasyChannels.info(message);
+        }
+
+        EasyChannels.info(message);
         return MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString("global-format")),

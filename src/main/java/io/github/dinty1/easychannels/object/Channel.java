@@ -6,6 +6,7 @@ import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +56,9 @@ public class Channel {
         String text = EmojiParser.parseToAliases(message.getContentStripped());
         String format = this.getDiscordFormat();
         if (format == null || format.equals("")) return; // No format set so go no further
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            text = PlaceholderAPI.setPlaceholders(null, text);
+        }
         text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
         text = MessageUtil.translateCodes(text);
         if (this.getPermission() == null) {
@@ -66,6 +70,9 @@ public class Channel {
     }
 
     private String format(String message, Player author) {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            message = PlaceholderAPI.setPlaceholders(author, message);
+        }
         String output = MessageUtil.translateCodes(
                 MessageUtil.replacePlaceholders(
                         this.getFormat(),

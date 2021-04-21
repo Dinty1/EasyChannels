@@ -26,7 +26,7 @@ public class AsyncPlayerChatEventListener implements Listener {
                 playerChannel.sendMessage(event.getMessage(), event.getPlayer());
             });
         } else if (EasyChannels.getPlugin().getConfig().getBoolean("modify-global-chat")){
-            event.setFormat(EasyChannels.getChannelManager().getGlobalChannelFormat(event.getMessage(), event.getPlayer()));
+            event.setFormat(EasyChannels.getChannelManager().getGlobalChannelFormat(event.getMessage(), event.getPlayer()).replace("%", "%%"));
         }
     }
 }
