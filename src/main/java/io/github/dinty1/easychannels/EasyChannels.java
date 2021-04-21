@@ -11,6 +11,7 @@ import io.github.dinty1.easychannels.manager.ChannelManager;
 import io.github.dinty1.easychannels.util.ConfigUtil;
 import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +38,9 @@ public class EasyChannels extends JavaPlugin {
 
         // Set up vault thing
         setupChat();
+
+        // Init BStats
+        Metrics metrics = new Metrics(this, 11106);
     }
 
     @Override
