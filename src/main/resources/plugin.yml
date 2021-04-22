@@ -21,8 +21,3 @@ commands:
     aliases: [channellist, chlist, listchannels]
     permission: easychannels.listchannels
     description: Lists all channels that the player has access to.
-
-permissions:
-  easychannels.listchannels:
-    default: true
-
