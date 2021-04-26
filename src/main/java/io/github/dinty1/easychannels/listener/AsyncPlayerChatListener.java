@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class AsyncPlayerChatEventListener implements Listener {
+public class AsyncPlayerChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     @SuppressWarnings("unused")
