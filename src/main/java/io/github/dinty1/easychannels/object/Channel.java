@@ -6,7 +6,6 @@ import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
