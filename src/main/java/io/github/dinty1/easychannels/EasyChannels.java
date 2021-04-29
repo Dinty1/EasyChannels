@@ -16,6 +16,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+
 public class EasyChannels extends JavaPlugin {
     @Getter private static ChannelManager channelManager = new ChannelManager();
     @Getter private static Chat chat;
@@ -25,6 +27,13 @@ public class EasyChannels extends JavaPlugin {
     public void onEnable() {
         // First thing's first, save the config
         this.saveDefaultConfig();
+
+        // Migrate config if needed
+        try {
+            ConfigUtil.migrate(this.getConfig(), this);
+        } catch (IOException e) {
+            error("An error occurred while attempting to migrate the configuration.", e);
+        }
 
         // Register stuff
         getChannelManager().registerChannelsAndCommands(ConfigUtil.getChannels(this));

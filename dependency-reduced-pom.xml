@@ -27,7 +27,7 @@
           <relocations>
             <relocation>
               <pattern>org.bstats</pattern>
-              <shadedPattern>io.github.dinty1.easychannels.dependancies.bstats</shadedPattern>
+              <shadedPattern>io.github.dinty1.easychannels.dependencies.bstats</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
