@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,8 +26,10 @@ public class ChannelListCommand implements CommandExecutor {
                 allowedChannels.add(c);
             }
         }
+        Player player = (Player) sender;
+
         for (Channel c : allowedChannels) {
-            sender.sendMessage(ChatColor.BLUE + c.getName() + " - /" + c.getCommands().get(0) + (c.getPermission() == null ? "" : " - Permission required"));
+            sender.sendMessage(ChatColor.GREEN + c.getName() + " - /" + c.getCommands().get(0) + (c.getPermission() == null ? "" : ChatColor.DARK_AQUA + " [Permission required]") + (c.getNotListening().contains(player.getUniqueId()) ? ChatColor.RED + " [Not Listening]" : ""));
         }
         return true;
     }
