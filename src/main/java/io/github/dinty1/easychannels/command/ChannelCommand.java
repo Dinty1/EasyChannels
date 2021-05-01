@@ -22,7 +22,7 @@ public class ChannelCommand extends BukkitCommand {
         if (this.getPermission() != null) {
             this.setPermission(this.getPermission());
         }
-        this.channel = channel; // Save channel object for later use
+        this.channel = channel;
     }
 
     @Override
@@ -33,6 +33,8 @@ public class ChannelCommand extends BukkitCommand {
             sender.sendMessage(ChatColor.RED + "You do not have access to this channel.");
         } else if (args.length == 0) {
             EasyChannels.getChannelManager().setAutoChannel((Player) sender, this.channel);
+            // Remove player from non-listen list
+            channel.getNotListening().remove(((Player) sender).getUniqueId());
             sender.sendMessage(ChatColor.BLUE + "You are now automatically chatting in the \"" + this.channel.getName() + "\" channel.");
         } else {
             channel.sendMessage(String.join(" ", args), (Player) sender);

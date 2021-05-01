@@ -8,16 +8,11 @@ import io.github.dinty1.easychannels.util.CommandUtil;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
-import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class ChannelManager {
@@ -35,10 +30,9 @@ public class ChannelManager {
                 EasyChannels.info("Loaded channel " + channel.getName());
                 // Register commands
                 CommandUtil.registerCommand(new ChannelCommand(channel, channel.getCommands()), EasyChannels.getPlugin(EasyChannels.class));
-                EasyChannels.info("Registered channel command " + channel.getCommands().get(0));
 
             } catch (InvalidChannelException e) {
-                EasyChannels.error(e.getMessage(), e);
+                EasyChannels.error(e.getMessage());
             } catch (ReflectiveOperationException e) {
                 EasyChannels.error("An error occured while attempting to register a channel command.", e);
             }
@@ -72,5 +66,9 @@ public class ChannelManager {
                 )
         );
 
+    }
+
+    public List<String> getChannelList() {
+        return new ArrayList<>(this.getChannels().keySet());
     }
 }

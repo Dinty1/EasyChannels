@@ -11,18 +11,17 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Channel {
     @Getter private String name;
-    @Getter private List<String> commands;
+    @Getter private final List<String> commands;
     @Getter @Nullable private String permission;
     @Getter private String format;
     @Getter @Nullable private String discordFormat;
-    private boolean isInvalid = true;
+    @Getter private final List<UUID> notListening = new ArrayList<>();
 
+    @SuppressWarnings("unchecked")
     public Channel(Map channelInfo) throws InvalidChannelException {
         this.name = channelInfo.get("name").toString();
         this.commands = (List<String>) channelInfo.get("commands");
@@ -37,11 +36,22 @@ public class Channel {
     }
 
     public void sendMessage(String message, Player author) {
+        // Player is sending a message so they evidently want to see what's happening in this channel
+        this.notListening.remove(author.getUniqueId());
         if (this.getPermission() == null) {
-            Bukkit.broadcastMessage(format(message, author));
+            for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if (!this.notListening.contains(p.getUniqueId())) {
+                    p.sendMessage(this.format(message, author));
+                }
+            }
         } else {
-            Bukkit.broadcast(format(message, author), this.getPermission());
-            Bukkit.getConsoleSender().sendMessage(format(message, author));
+            for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
+                assert this.permission != null;
+                if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission)) {
+                    p.sendMessage(this.format(message, author));
+                }
+            }
+            Bukkit.getConsoleSender().sendMessage(this.format(message, author));
         }
 
         if (EasyChannels.discordSrvHookEnabled()) {
@@ -58,9 +68,18 @@ public class Channel {
         text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
         text = MessageUtil.translateCodes(text);
         if (this.getPermission() == null) {
-            Bukkit.broadcastMessage(text);
+            for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if (!this.notListening.contains(p.getUniqueId())) {
+                    p.sendMessage(text);
+                }
+            }
         } else {
-            Bukkit.broadcast(text, this.getPermission());
+            for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
+                assert this.permission != null;
+                if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission)) {
+                    p.sendMessage(text);
+                }
+            }
             Bukkit.getConsoleSender().sendMessage(text);
         }
     }
