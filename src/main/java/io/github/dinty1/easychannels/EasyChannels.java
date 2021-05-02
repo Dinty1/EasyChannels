@@ -13,6 +13,7 @@ import io.github.dinty1.easychannels.util.ConfigUtil;
 import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
@@ -50,8 +51,9 @@ public class EasyChannels extends JavaPlugin {
         // Set up vault thing
         setupChat();
 
-        // Init BStats
+        // Metrics and shit
         Metrics metrics = new Metrics(this, 11106);
+        metrics.addCustomChart(new SimplePie("number_of_channels", () -> String.valueOf(getChannelManager().getChannels().size())));
     }
 
     @Override
