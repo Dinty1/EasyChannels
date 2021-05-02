@@ -7,11 +7,10 @@ import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.object.Channel;
 import io.github.dinty1.easychannels.util.MiscUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 
 import java.util.Map;
 
-public class DiscordGuildMessagePreProcessListener implements Listener {
+public class DiscordGuildMessagePreProcessListener {
 
     @Subscribe
     @SuppressWarnings("unused")

@@ -3,7 +3,8 @@ package io.github.dinty1.easychannels;
 import github.scarsz.discordsrv.DiscordSRV;
 import io.github.dinty1.easychannels.command.ChannelListCommand;
 import io.github.dinty1.easychannels.command.GlobalChatCommand;
-import io.github.dinty1.easychannels.listener.AsyncPlayerChatEventListener;
+import io.github.dinty1.easychannels.command.LeaveCommand;
+import io.github.dinty1.easychannels.listener.AsyncPlayerChatListener;
 import io.github.dinty1.easychannels.listener.DiscordGuildMessagePreProcessListener;
 import io.github.dinty1.easychannels.listener.PlayerLeaveListener;
 import io.github.dinty1.easychannels.listener.PluginEnableListener;
@@ -16,6 +17,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+
 public class EasyChannels extends JavaPlugin {
     @Getter private static ChannelManager channelManager = new ChannelManager();
     @Getter private static Chat chat;
@@ -26,15 +29,23 @@ public class EasyChannels extends JavaPlugin {
         // First thing's first, save the config
         this.saveDefaultConfig();
 
+        // Migrate config if needed
+        try {
+            ConfigUtil.migrate(this.getConfig(), this);
+        } catch (IOException e) {
+            error("An error occurred while attempting to migrate the configuration.", e);
+        }
+
         // Register stuff
         getChannelManager().registerChannelsAndCommands(ConfigUtil.getChannels(this));
 
-        getServer().getPluginManager().registerEvents(new AsyncPlayerChatEventListener(), this);
+        getServer().getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new PluginEnableListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
 
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
         getCommand("channels").setExecutor(new ChannelListCommand());
+        getCommand("leavechannel").setExecutor(new LeaveCommand());
 
         // Set up vault thing
         setupChat();
@@ -57,6 +68,10 @@ public class EasyChannels extends JavaPlugin {
         if (e != null) {
             e.printStackTrace();
         }
+    }
+
+    public static void error(String message) {
+        error(message, null);
     }
 
     public static EasyChannels getPlugin() {

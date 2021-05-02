@@ -14,10 +14,22 @@ commands:
     usage: |-
       /<command> - Return to the global channel
       /<command> <message> - Send a message to the global channel
-  easychannels:
-    usage: |-
-      /<command> reload - Reloads the plugin's configuration.
   channels:
     aliases: [channellist, chlist, listchannels]
     permission: easychannels.listchannels
+    permission-message: "§cYou do not have access to this command."
     description: Lists all channels that the player has access to.
+  leavechannel:
+    aliases: [leave, stoplistening, mutechannel]
+    usage: /<command> <channel>
+    permission: easychannels.leavechannel
+    permission-message: "§cYou do not have access to this command."
+    description: Stop listening to a specific channel.
+
+permissions:
+  easychannels.leavechannel:
+    default: true
+    description: Allows the user to stop listening to a specific channel
+  easychannels.listchannels:
+    default: true
+    description: Allows access to the /channels command.
