@@ -48,7 +48,7 @@ channels:
 #                                                     - %username% - The user's username
 #                                                     - %tag% - The user's full tag
 #                                                     - %message% - The message
-#                                                     - Any PAPI placeholders
+#                                                     - Any non-player PAPI placeholders
 #
 # An example channel is shown below.
   - name: staff
