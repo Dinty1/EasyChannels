@@ -10,6 +10,9 @@
 # Please don't touch this
 config-version: ${project.version}
 #
+# Whether players with the easychannels.adminalerts permission should be notified of available updates when they log in
+notify-admins-of-updates: true
+#
 # Whether to modify the global chat format (keep this disabled if you modify chat with another chat plugin)
 modify-global-chat: false
 #
