@@ -21,8 +21,8 @@ public class MessageUtil {
         return format
                 .replace("%username%", player.getName())
                 .replace("%displayname%", player.getDisplayName())
-                .replace("%prefix%", EasyChannels.getChat().getPlayerPrefix(player))
-                .replace("%suffix%", EasyChannels.getChat().getPlayerSuffix(player))
+                .replace("%prefix%", EasyChannels.getChat() == null ? "" : EasyChannels.getChat().getPlayerPrefix(player))
+                .replace("%suffix%", EasyChannels.getChat() == null ? "" : EasyChannels.getChat().getPlayerSuffix(player))
                 .replace("%message%", message);
     }
 

@@ -33,3 +33,6 @@ permissions:
   easychannels.listchannels:
     default: true
     description: Allows access to the /channels command.
+  easychannels.adminalerts:
+    default: op
+    description: Allows receiving of update notifications on login

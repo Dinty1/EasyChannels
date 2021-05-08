@@ -44,6 +44,7 @@ public class Channel {
                     p.sendMessage(this.format(message, author));
                 }
             }
+            Bukkit.getConsoleSender().sendMessage(this.format(message, author)); // Broadcast message to console
         } else {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 assert this.permission != null;
@@ -73,6 +74,7 @@ public class Channel {
                     p.sendMessage(text);
                 }
             }
+            Bukkit.getConsoleSender().sendMessage(text); // Broadcast message to console
         } else {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 assert this.permission != null;
@@ -80,7 +82,7 @@ public class Channel {
                     p.sendMessage(text);
                 }
             }
-            Bukkit.getConsoleSender().sendMessage(text);
+            Bukkit.getConsoleSender().sendMessage(text); // Broadcast message to console
         }
     }
 
