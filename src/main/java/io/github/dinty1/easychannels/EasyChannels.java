@@ -95,7 +95,7 @@ public class EasyChannels extends JavaPlugin {
 
     public void setupChat() {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        chat = rsp.getProvider();
+        chat = rsp == null ? null : rsp.getProvider();
     }
 
     public static boolean discordSrvHookEnabled() {
