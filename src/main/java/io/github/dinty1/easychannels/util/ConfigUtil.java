@@ -78,7 +78,8 @@ public class ConfigUtil {
             newConfigLines.addAll(channelConfigLines);
 
             final String newConfig = String.join(System.lineSeparator(), newConfigLines);
-            FileWriter fileWriter = new FileWriter(easyChannels.getDataFolder().getAbsolutePath() + "\\config.yml");
+            // Doing this the hard way for cross-platform compatibility (cough linux)
+            FileWriter fileWriter = new FileWriter(new File(easyChannels.getDataFolder(), "config.yml"));
             fileWriter.write(newConfig);
             fileWriter.close();
         }
