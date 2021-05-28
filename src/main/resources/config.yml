@@ -25,7 +25,7 @@ modify-global-chat: false
 # - %prefix% - The player's prefix
 # - %suffix% - The player's suffix
 # - Any PAPI placeholders
-global-format: "%prefix%&7 %username%:&r %message%"
+global-format: "<%username%> %message%"
 #
 channels:
 # Channels
