@@ -29,7 +29,7 @@ public class ChannelManager {
                 channels.put(i.get("name").toString(), channel);
                 EasyChannels.info("Loaded channel " + channel.getName());
                 // Register commands
-                CommandUtil.registerCommand(new ChannelCommand(channel, channel.getCommands()), EasyChannels.getPlugin(EasyChannels.class));
+                CommandUtil.registerCommand(new ChannelCommand(channel), EasyChannels.getPlugin(EasyChannels.class));
 
             } catch (InvalidChannelException e) {
                 EasyChannels.error(e.getMessage());
