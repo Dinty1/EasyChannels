@@ -2,6 +2,7 @@ package io.github.dinty1.easychannels;
 
 import github.scarsz.discordsrv.DiscordSRV;
 import io.github.dinty1.easychannels.command.ChannelListCommand;
+import io.github.dinty1.easychannels.command.EasyChannelsCommand;
 import io.github.dinty1.easychannels.command.GlobalChatCommand;
 import io.github.dinty1.easychannels.command.LeaveCommand;
 import io.github.dinty1.easychannels.listener.*;
@@ -47,6 +48,7 @@ public class EasyChannels extends JavaPlugin {
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
         getCommand("channels").setExecutor(new ChannelListCommand());
         getCommand("leavechannel").setExecutor(new LeaveCommand());
+        getCommand("easychannels").setExecutor(new EasyChannelsCommand(this));
 
         // Set up vault thing
         setupChat();
