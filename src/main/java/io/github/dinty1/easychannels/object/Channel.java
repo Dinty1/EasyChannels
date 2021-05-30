@@ -28,8 +28,8 @@ public class Channel {
         this.permission = channelInfo.get("permission") != null ? "easychannels." + channelInfo.get("permission").toString() : null;
         this.format = channelInfo.get("format").toString();
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
-        if (this.name == null || this.commands == null || this.format == null) {
-            throw new InvalidChannelException("One of the required channel options is null.");
+        if (this.name == null || this.commands == null || this.format == null || this.commands.size() < 1) {
+            throw new InvalidChannelException("One of the required channel options is null (or empty).");
         } else if (this.name.equals("global")) {
             throw new InvalidChannelException("Custom channels cannot be named \"global\"");
         }
