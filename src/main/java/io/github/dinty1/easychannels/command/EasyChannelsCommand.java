@@ -32,7 +32,7 @@ public class EasyChannelsCommand implements CommandExecutor, TabExecutor {
                     return true;
                 }
                 plugin.reloadConfig();
-                sender.sendMessage(ChatColor.DARK_AQUA + "The EasyChannels configuration has been reloaded. Keep in mind that changing anything channel-specific requires a server restart.");
+                sender.sendMessage(ChatColor.BLUE + "The EasyChannels configuration has been reloaded. Keep in mind that changing anything channel-specific requires a server restart.");
                 break;
             default:
                 return false;
