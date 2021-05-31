@@ -13,12 +13,12 @@ import java.util.List;
 public class ChannelCommand extends BukkitCommand {
     private Channel channel;
 
-    public ChannelCommand(Channel channel, List<String> commands) {
-        super(commands.get(0));// Register command with the first alias
+    public ChannelCommand(Channel channel) {
+        super(channel.getCommands().get(0));// Register command with the first alias
+        final List<String> commands = channel.getCommands();
         this.usageMessage = "/" + commands.get(0) + " [message]";
         this.description = "Send a message to/toggle automatic chatting in the " + channel.getName() + " channel.";
-        commands.remove(0);// Remove the already registered command so that we can add everything else as aliases
-        this.setAliases(commands);
+        this.setAliases(commands.subList(1, commands.size()));// Remove the already registered command so that we can add everything else as aliases
         if (this.getPermission() != null) {
             this.setPermission(this.getPermission());
         }

@@ -1,6 +1,6 @@
 name: EasyChannels
 description: Chat channels, without the fuss
-author: DintyB
+author: Dinty1
 main: io.github.dinty1.easychannels.EasyChannels
 version: ${project.version}
 api-version: 1.16
@@ -25,6 +25,10 @@ commands:
     permission: easychannels.leavechannel
     permission-message: "§cYou do not have access to this command."
     description: Stop listening to a specific channel.
+  easychannels:
+    usage: |-
+      /<command> reloadconfig - Reloads the plugin's configuration
+    description: General plugin-related commands
 
 permissions:
   easychannels.leavechannel:
@@ -36,3 +40,20 @@ permissions:
   easychannels.adminalerts:
     default: op
     description: Allows receiving of update notifications on login
+  easychannels.reloadconfig:
+    default: op
+    description: Allows reloading the plugin's configuration without a restart
+
+  easychannels.admin:
+    description: Contains all admin-related permissions
+    default: op
+    children:
+      easychannels.adminalerts: true
+      easychannels.reloadconfig: true
+
+  easychannels.player:
+    description: Contains all player-related permissions
+    default: true
+    children:
+      easychannels.leavechannel: true
+      easychannels.listchannels: true
