@@ -35,7 +35,7 @@ public class ChannelCommand extends BukkitCommand {
             EasyChannels.getChannelManager().setAutoChannel((Player) sender, this.channel);
             // Remove player from non-listen list
             channel.getNotListening().remove(((Player) sender).getUniqueId());
-            sender.sendMessage(ChatColor.BLUE + "Channel set:" + ChatColor.GRAY + this.channel.getName());
+            sender.sendMessage(ChatColor.BLUE + "Channel set: " + ChatColor.GRAY + this.channel.getName());
         } else {
             channel.sendMessage(String.join(" ", args), (Player) sender);
         }
