@@ -31,7 +31,7 @@ public class LeaveCommand implements TabExecutor {
             player.sendMessage(ChatColor.RED + "You do not have access to that channel.");
         } else {
             if (!channel.getNotListening().contains(player.getUniqueId())) channel.getNotListening().add(player.getUniqueId());
-            sender.sendMessage(ChatColor.BLUE + "You are now not listening to messages sent in the \"" + channel.getName() + "\" channel.");
+            sender.sendMessage(ChatColor.BLUE + "Channel left:" + ChatColor.GRAY + channel.getName());
             ChannelManager manager = EasyChannels.getChannelManager();
             // If the player is autochatting here then remove them from that
             if (manager.getAutoChannel(player) != null && manager.getAutoChannel(player).getName().equals(channel.getName()))

@@ -17,7 +17,7 @@ public class GlobalChatCommand implements CommandExecutor {
         ChannelManager manager = EasyChannels.getChannelManager();
         if (args.length < 1) { // If command doesn't have a message attached
             manager.removeAutoChannel(player);
-            sender.sendMessage(ChatColor.BLUE + "You have returned to the \"global\" channel.");
+            sender.sendMessage(ChatColor.BLUE + "Channel set:" + ChatColor.GRAY + "global");
         } else { // Player wants to send a one-off message to the global channel
             Channel autoChannel = manager.getAutoChannel(player); // Save their current autoChannel
             manager.removeAutoChannel(player); // Briefly clear so that we can send a message
