@@ -34,7 +34,6 @@ channels:
 # commands: [s, staffchat] - The commands that can be used to access the channel.
 #
 # permission: staffchannel - The permission that users must have to use/read this channel. The full permission will be easychannels.<permission>.
-#                            Existing permission nodes may not be used.
 #
 # format: "&5[Staff] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
 #                                               - %username% - The player's username
