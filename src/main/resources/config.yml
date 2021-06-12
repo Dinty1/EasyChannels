@@ -53,9 +53,13 @@ channels:
 #                                                     - %message% - The message
 #                                                     - Any non-player PAPI placeholders
 #
+# range: 200 - The distance to broadcast messages (only players within this distance will receive them). Keep in mind that if you are linking
+#              this channel to Discord, you may see some unexpected behaviour. Set to a number less than 1 or remove entirely to disable.
+#
 # An example channel is shown below.
   - name: staff
     commands: [s, staffchat, sc]
     permission: staffchannel
     format: "&5[Staff] &7%username%: &r%message%"
     discord-format: "&5&o[Staff] &7%name%: &r%message%"
+    range: -1
