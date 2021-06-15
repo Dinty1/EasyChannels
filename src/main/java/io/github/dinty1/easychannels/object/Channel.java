@@ -6,6 +6,7 @@ import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public class Channel {
     @Getter @Nullable private String permission;
     @Getter private String format;
     @Getter @Nullable private String discordFormat;
-    @Getter private final List<UUID> notListening = new ArrayList<>();
+    @Getter @Setter private List<UUID> notListening = new ArrayList<>();
     @Getter private int range;
 
     @SuppressWarnings("unchecked")
