@@ -21,7 +21,7 @@ public class Channel {
     @Getter private String format;
     @Getter @Nullable private String discordFormat;
     @Getter @Setter private List<UUID> notListening = new ArrayList<>();
-    @Getter private int range;
+    @Getter @Setter int range;
 
     @SuppressWarnings("unchecked")
     public Channel(Map<String, ?> channelInfo) throws InvalidChannelException {
