@@ -29,7 +29,7 @@ public class ChannelListCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         for (Channel c : allowedChannels) {
-            sender.sendMessage(ChatColor.GREEN + c.getName() + " - /" + c.getCommands().get(0) + (c.getPermission() == null ? "" : ChatColor.DARK_AQUA + " [Permission required]") + (c.getNotListening().contains(player.getUniqueId()) ? ChatColor.RED + " [Not Listening]" : ""));
+            sender.sendMessage(ChatColor.GREEN + c.getName() + " - /" + c.getCommands().get(0) + (c.getPermission() == null ? "" : ChatColor.DARK_AQUA + " [Permission required]") + (c.getNotListening().contains(player.getUniqueId()) ? ChatColor.RED + " [Not Listening]" : "") + (c.getRange() != 0 ? ChatColor.DARK_PURPLE + " [Ranged]" : ""));
         }
         return true;
     }
