@@ -42,6 +42,7 @@ public class Channel {
         this.notListening.remove(author.getUniqueId());
         if (this.getPermission() == null) {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
+                if (this.getRange() != 0 && author.getWorld() != p.getWorld()) continue; // If it's ranged and they're in a different world, skip
                 if (!this.notListening.contains(p.getUniqueId()) && (this.getRange() == 0 || author.getLocation().distance(p.getLocation()) <= this.getRange())) {
                     p.sendMessage(this.format(message, author));
                 }
@@ -50,6 +51,7 @@ public class Channel {
         } else {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 assert this.permission != null;
+                if (this.getRange() != 0 && author.getWorld() != p.getWorld()) continue; // If it's ranged and they're in a different world, skip
                 if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission) && (this.getRange() == 0 || author.getLocation().distance(p.getLocation()) <= this.getRange())) {
                     p.sendMessage(this.format(message, author));
                 }
