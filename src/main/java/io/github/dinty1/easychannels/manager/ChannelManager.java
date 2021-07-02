@@ -68,6 +68,7 @@ public class ChannelManager {
 
     }
 
+    // TODO rename to getChannelsAsList() and deprecate this
     public List<String> getChannelList() {
         return new ArrayList<>(this.getChannels().keySet());
     }

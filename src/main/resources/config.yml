@@ -3,9 +3,9 @@
 #
 # Setup instructions: https://github.com/Dinty1/EasyChannels/wiki/Configuration
 #
-# If you have any issues, please join this Discord server: https://discord.gg/BCVHCzd77R or open an issue on GitHub (https://github.com/Dinty1/EasyChannels)
+# If you have any issues, please join this Discord server: https://dinty1.github.io/plugins-discord or open an issue on GitHub (https://github.com/Dinty1/EasyChannels)
 #
-# You MUST restart your server to apply config changes.
+# You MUST restart your server to apply channel-related config changes. Otherwise, you may use /easychannels reloadconfig.
 #
 # Please don't touch this
 config-version: ${project.version}
@@ -34,9 +34,8 @@ channels:
 # commands: [s, staffchat] - The commands that can be used to access the channel.
 #
 # permission: staffchannel - The permission that users must have to use/read this channel. The full permission will be easychannels.<permission>.
-#                            Existing permission nodes may not be used.
 #
-# format: "&5[Staff] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
+# format: "&8[&5Staff&8] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
 #                                               - %username% - The player's username
 #                                               - %displayname% - The player's displayname
 #                                               - %message% - The message
@@ -44,7 +43,7 @@ channels:
 #                                               - %suffix% - The player's suffix
 #                                               - Any PAPI placeholders
 #
-# discord-format: "&5&o[Staff] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
+# discord-format: "&8&o[&5&oStaff&8&o] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
 #                                                       If this option is not specified, messages will not be sent or received from Discord.
 #                                                       Available placeholders:
 #                                                     - %name% - The user's displayname
@@ -53,9 +52,13 @@ channels:
 #                                                     - %message% - The message
 #                                                     - Any non-player PAPI placeholders
 #
+# range: 200 - The distance to broadcast messages (only players within this distance will receive them). Keep in mind that if you are linking
+#              this channel to Discord, you may see some unexpected behaviour. Set to a number less than 1 or remove entirely to disable.
+#
 # An example channel is shown below.
   - name: staff
     commands: [s, staffchat, sc]
     permission: staffchannel
-    format: "&5[Staff] &7%username%: &r%message%"
-    discord-format: "&5&o[Staff] &7%name%: &r%message%"
+    format: "&8[&5Staff&8] &7%username%: &r%message%"
+    discord-format: "&8&o[&5&oStaff&8&o] &7%name%: &r%message%"
+    range: -1

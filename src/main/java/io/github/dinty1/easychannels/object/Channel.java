@@ -6,6 +6,7 @@ import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -19,15 +20,17 @@ public class Channel {
     @Getter @Nullable private String permission;
     @Getter private String format;
     @Getter @Nullable private String discordFormat;
-    @Getter private final List<UUID> notListening = new ArrayList<>();
+    @Getter @Setter private List<UUID> notListening = new ArrayList<>();
+    @Getter @Setter int range;
 
     @SuppressWarnings("unchecked")
-    public Channel(Map channelInfo) throws InvalidChannelException {
+    public Channel(Map<String, ?> channelInfo) throws InvalidChannelException {
         this.name = channelInfo.get("name").toString();
         this.commands = (List<String>) channelInfo.get("commands");
         this.permission = channelInfo.get("permission") != null ? "easychannels." + channelInfo.get("permission").toString() : null;
         this.format = channelInfo.get("format").toString();
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
+        this.range = channelInfo.get("range") == null || Integer.parseInt(channelInfo.get("range").toString()) < 1 ? 0 : Integer.parseInt(channelInfo.get("range").toString());
         if (this.name == null || this.commands == null || this.format == null || this.commands.size() < 1) {
             throw new InvalidChannelException("One of the required channel options is null (or empty).");
         } else if (this.name.equals("global")) {
@@ -40,7 +43,8 @@ public class Channel {
         this.notListening.remove(author.getUniqueId());
         if (this.getPermission() == null) {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
-                if (!this.notListening.contains(p.getUniqueId())) {
+                if (this.getRange() != 0 && author.getWorld() != p.getWorld()) continue; // If it's ranged and they're in a different world, skip
+                if (!this.notListening.contains(p.getUniqueId()) && (this.getRange() == 0 || author.getLocation().distance(p.getLocation()) <= this.getRange())) {
                     p.sendMessage(this.format(message, author));
                 }
             }
@@ -48,7 +52,8 @@ public class Channel {
         } else {
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 assert this.permission != null;
-                if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission)) {
+                if (this.getRange() != 0 && author.getWorld() != p.getWorld()) continue; // If it's ranged and they're in a different world, skip
+                if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission) && (this.getRange() == 0 || author.getLocation().distance(p.getLocation()) <= this.getRange())) {
                     p.sendMessage(this.format(message, author));
                 }
             }

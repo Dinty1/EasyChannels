@@ -25,6 +25,11 @@ commands:
     permission: easychannels.leavechannel
     permission-message: "§cYou do not have access to this command."
     description: Stop listening to a specific channel.
+  listenchannel:
+    aliases: [listen, startlistening, unmutechannel]
+    usage: /<command> <channel>
+    permission: easychannels.listenchannel
+    permission-message: "§cYou do not have access to this command."
   easychannels:
     usage: |-
       /<command> reloadconfig - Reloads the plugin's configuration
@@ -34,6 +39,9 @@ permissions:
   easychannels.leavechannel:
     default: true
     description: Allows the user to stop listening to a specific channel
+  easychannels.listenchannel:
+    default: true
+    description: Allows the user to start listening to a channel without joining it
   easychannels.listchannels:
     default: true
     description: Allows access to the /channels command.
@@ -57,3 +65,4 @@ permissions:
     children:
       easychannels.leavechannel: true
       easychannels.listchannels: true
+      easychannels.listenchannel: true
