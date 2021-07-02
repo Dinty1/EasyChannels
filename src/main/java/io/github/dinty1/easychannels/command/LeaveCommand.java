@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class LeaveCommand extends AbstractChannelOrientedCommand {
-    // TODO requires testing
 
     @Override
     public void execute(Channel channel, Player player) {
