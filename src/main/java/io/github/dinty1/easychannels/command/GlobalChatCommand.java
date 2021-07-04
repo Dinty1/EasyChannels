@@ -13,6 +13,10 @@ import org.jetbrains.annotations.NotNull;
 public class GlobalChatCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            return true;
+        }
         Player player = (Player) sender;
         ChannelManager manager = EasyChannels.getChannelManager();
         if (args.length < 1) { // If command doesn't have a message attached

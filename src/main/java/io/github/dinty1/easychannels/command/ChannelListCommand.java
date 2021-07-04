@@ -16,6 +16,10 @@ import java.util.Map;
 public class ChannelListCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            return true;
+        }
         Map<String, Channel> channels = EasyChannels.getChannelManager().getChannels();
         sender.sendMessage(ChatColor.BLUE + "You have access to the following channels:");
         List<Channel> allowedChannels = new ArrayList<>();
