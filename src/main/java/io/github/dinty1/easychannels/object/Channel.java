@@ -13,13 +13,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Channel {
-    @Getter private String name;
+    @Getter private final String name;
     @Getter private final List<String> commands;
-    @Getter @Nullable private String permission;
-    @Getter private String format;
-    @Getter @Nullable private String discordFormat;
+    @Getter @Nullable private final String permission;
+    @Getter private final String format;
+    @Getter @Nullable private final String discordFormat;
     @Getter @Setter private List<UUID> notListening = new ArrayList<>();
     @Getter @Setter int range;
 
@@ -68,22 +69,21 @@ public class Channel {
     }
 
     public void sendMessageFromDiscord(@NotNull Message message) {
-        String text = EmojiParser.parseToAliases(message.getContentStripped());
-        String format = this.getDiscordFormat();
-        if (format == null || format.equals("")) return; // No format set so go no further
-        text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
-        text = MessageUtil.translateCodes(text);
-        if (this.getPermission() == null) {
+        final List<String> messages = new ArrayList<>();
+        if (!message.getContentStripped().equals(""))
+            messages.add(EmojiParser.parseToAliases(message.getContentStripped()));
+        messages.addAll(message.getAttachments().stream().map(Message.Attachment::getUrl).collect(Collectors.toList()));
+
+        for (String text : messages) {
+            String format = this.getDiscordFormat();
+            if (format == null || format.equals("")) return; // No format set so go no further
+            text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
+            text = MessageUtil.translateCodes(text);
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
-                if (!this.notListening.contains(p.getUniqueId())) {
-                    p.sendMessage(text);
+                if (this.getPermission() != null) {
+                    if (!p.hasPermission(this.getPermission())) continue;
                 }
-            }
-            Bukkit.getConsoleSender().sendMessage(text); // Broadcast message to console
-        } else {
-            for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
-                assert this.permission != null;
-                if (!this.notListening.contains(p.getUniqueId()) && p.hasPermission(this.permission)) {
+                if (!this.notListening.contains(p.getUniqueId())) {
                     p.sendMessage(text);
                 }
             }
