@@ -67,11 +67,13 @@ public class Channel {
             });
         }
     }
-    // TODO optimize method above, test, handle attachments
+
     public void sendMessageFromDiscord(@NotNull Message message) {
         final List<String> messages = new ArrayList<>();
-        messages.add(EmojiParser.parseToAliases(message.getContentStripped()));
+        if (!message.getContentStripped().equals(""))
+            messages.add(EmojiParser.parseToAliases(message.getContentStripped()));
         messages.addAll(message.getAttachments().stream().map(Message.Attachment::getUrl).collect(Collectors.toList()));
+
         for (String text : messages) {
             String format = this.getDiscordFormat();
             if (format == null || format.equals("")) return; // No format set so go no further
