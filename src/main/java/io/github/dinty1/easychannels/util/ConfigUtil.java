@@ -84,4 +84,13 @@ public class ConfigUtil {
             fileWriter.close();
         }
     }
+
+    public static Set<String> findMissingChannelOptions(Map<String, ?> channelInfo) {
+        final Set<String> missingChannelOptions = new HashSet<>();
+        final Set<String> optionsToCheck = new HashSet<>(Arrays.asList("name", "commands", "format"));
+        for (final String option : optionsToCheck) {
+            if (channelInfo.get(option) == null || channelInfo.get(option).equals("")) missingChannelOptions.add(option);
+        }
+        return missingChannelOptions;
+    }
 }
