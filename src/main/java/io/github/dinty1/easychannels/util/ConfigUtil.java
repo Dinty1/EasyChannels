@@ -16,7 +16,8 @@ public class ConfigUtil {
 
     public static void migrate(FileConfiguration oldConfig, EasyChannels easyChannels) throws IOException {
         if (!oldConfig.getString("config-version").equals(easyChannels.getDescription().getVersion())) {
-            easyChannels.getLogger().info("Your config version does not match the plugin version, migrating...");
+            easyChannels.getLogger().info("Your config version does not match the plugin version, updating...");
+            easyChannels.getLogger().info("You should check your config after to make sure it's alright");
 
             // Load config
             File oldConfigFile = new File(easyChannels.getDataFolder(), "config.yml");
