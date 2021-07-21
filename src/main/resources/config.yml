@@ -17,7 +17,6 @@ notify-admins-of-updates: true
 modify-global-chat: false
 #
 # The global chat format
-#
 # Available placeholders:
 # - %username% - The player's username
 # - %displayname% - The player's displayname
@@ -26,6 +25,18 @@ modify-global-chat: false
 # - %suffix% - The player's suffix
 # - Any PAPI placeholders
 global-format: "<%username%> %message%"
+#
+# Messages
+# If you want to disable a particular message, set the option to ""
+#
+# The message shown when a user has started autochatting in a channel
+channel-set-message: "&9Channel set: &7%channel%"
+#
+# The message shown when a user has stopped listening to a channel
+channel-left-message: "&9Channel left: &7%channel%"
+#
+# The message shown when a user has started listening to a channel
+now-listening-message: "&9Now listening to &7%channel%"
 #
 channels:
 # Channels

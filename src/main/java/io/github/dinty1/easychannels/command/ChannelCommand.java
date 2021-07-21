@@ -2,6 +2,7 @@ package io.github.dinty1.easychannels.command;
 
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.object.Channel;
+import io.github.dinty1.easychannels.util.ConfigUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -35,7 +36,8 @@ public class ChannelCommand extends BukkitCommand {
             EasyChannels.getChannelManager().setAutoChannel((Player) sender, this.channel);
             // Remove player from non-listen list
             channel.getNotListening().remove(((Player) sender).getUniqueId());
-            sender.sendMessage(ChatColor.BLUE + "Channel set: " + ChatColor.GRAY + this.channel.getName());
+            if (!ConfigUtil.Message.CHANNEL_SET.isBlank())
+                sender.sendMessage(ConfigUtil.Message.CHANNEL_SET.replaceChannelPlaceholder(this.channel));
         } else {
             channel.sendMessage(String.join(" ", args), (Player) sender);
         }

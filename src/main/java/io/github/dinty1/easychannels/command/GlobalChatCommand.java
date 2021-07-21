@@ -1,8 +1,9 @@
 package io.github.dinty1.easychannels.command;
 
 import io.github.dinty1.easychannels.EasyChannels;
-import io.github.dinty1.easychannels.object.Channel;
 import io.github.dinty1.easychannels.manager.ChannelManager;
+import io.github.dinty1.easychannels.object.Channel;
+import io.github.dinty1.easychannels.util.ConfigUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +22,8 @@ public class GlobalChatCommand implements CommandExecutor {
         ChannelManager manager = EasyChannels.getChannelManager();
         if (args.length < 1) { // If command doesn't have a message attached
             manager.removeAutoChannel(player);
-            sender.sendMessage(ChatColor.BLUE + "Channel set: " + ChatColor.GRAY + "global");
+            if (!ConfigUtil.Message.CHANNEL_SET.isBlank())
+                sender.sendMessage(ConfigUtil.Message.CHANNEL_SET.replaceChannelPlaceholder("global"));
         } else { // Player wants to send a one-off message to the global channel
             Channel autoChannel = manager.getAutoChannel(player); // Save their current autoChannel
             manager.removeAutoChannel(player); // Briefly clear so that we can send a message

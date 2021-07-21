@@ -1,6 +1,8 @@
 package io.github.dinty1.easychannels.util;
 
 import io.github.dinty1.easychannels.EasyChannels;
+import io.github.dinty1.easychannels.object.Channel;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -93,5 +95,35 @@ public class ConfigUtil {
             if (channelInfo.get(option) == null || channelInfo.get(option).equals("")) missingChannelOptions.add(option);
         }
         return missingChannelOptions;
+    }
+
+    public enum Message {
+        CHANNEL_SET("channel-set-message"),
+        CHANNEL_LEFT("channel-left-message"),
+        NOW_LISTENING("now-listening-message");
+
+        private final String configOption;
+
+        Message(String configOption) {
+            this.configOption = configOption;
+        }
+
+        @Override
+        public String toString() {
+            final String message = Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString(this.configOption));
+            return ChatColor.translateAlternateColorCodes('&', message);
+        }
+
+        public String replaceChannelPlaceholder(Channel channel) {
+            return this.toString().replace("%channel%", channel.getName());
+        }
+
+        public String replaceChannelPlaceholder(String replacement) {
+            return this.toString().replace("%channel%", "global");
+        }
+
+        public boolean isBlank() {
+            return this.toString().equals("");
+        }
     }
 }
