@@ -53,3 +53,9 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: '**New release for {{ EVENT_PAYLOAD.repository.full_name }}: Version ${{github.event.pull_request.title}}**```${{github.event.pull_request.body}}```Direct download: ${{steps.upload_assets.outputs.browser_download_url}}'
+      - name: Discord notification to dedicated channel
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.RELEASE_WEBHOOK_TO_DEDICATED_CHANNEL }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '**Version ${{github.event.pull_request.title}}**```${{github.event.pull_request.body}}```Direct download: ${{steps.upload_assets.outputs.browser_download_url}}'

@@ -1,6 +1,8 @@
 package io.github.dinty1.easychannels.util;
 
 import io.github.dinty1.easychannels.EasyChannels;
+import io.github.dinty1.easychannels.object.Channel;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -16,7 +18,8 @@ public class ConfigUtil {
 
     public static void migrate(FileConfiguration oldConfig, EasyChannels easyChannels) throws IOException {
         if (!oldConfig.getString("config-version").equals(easyChannels.getDescription().getVersion())) {
-            easyChannels.getLogger().info("Your config version does not match the plugin version, migrating...");
+            easyChannels.getLogger().info("Your config version does not match the plugin version, updating...");
+            easyChannels.getLogger().info("You should check your config after to make sure it's alright");
 
             // Load config
             File oldConfigFile = new File(easyChannels.getDataFolder(), "config.yml");
@@ -82,6 +85,45 @@ public class ConfigUtil {
             FileWriter fileWriter = new FileWriter(new File(easyChannels.getDataFolder(), "config.yml"));
             fileWriter.write(newConfig);
             fileWriter.close();
+        }
+    }
+
+    public static Set<String> findMissingChannelOptions(Map<String, ?> channelInfo) {
+        final Set<String> missingChannelOptions = new HashSet<>();
+        final Set<String> optionsToCheck = new HashSet<>(Arrays.asList("name", "commands", "format"));
+        for (final String option : optionsToCheck) {
+            if (channelInfo.get(option) == null || channelInfo.get(option).equals("")) missingChannelOptions.add(option);
+        }
+        return missingChannelOptions;
+    }
+
+    public enum Message {
+        CHANNEL_SET("channel-set-message"),
+        CHANNEL_LEFT("channel-left-message"),
+        NOW_LISTENING("now-listening-message");
+
+        private final String configOption;
+
+        Message(String configOption) {
+            this.configOption = configOption;
+        }
+
+        @Override
+        public String toString() {
+            final String message = Objects.requireNonNull(EasyChannels.getPlugin().getConfig().getString(this.configOption));
+            return ChatColor.translateAlternateColorCodes('&', message);
+        }
+
+        public String replaceChannelPlaceholder(Channel channel) {
+            return this.toString().replace("%channel%", channel.getName());
+        }
+
+        public String replaceChannelPlaceholder(String replacement) {
+            return this.toString().replace("%channel%", replacement);
+        }
+
+        public boolean isBlank() {
+            return this.toString().equals("");
         }
     }
 }

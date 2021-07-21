@@ -4,6 +4,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.emoji.EmojiParser;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
 import io.github.dinty1.easychannels.EasyChannels;
+import io.github.dinty1.easychannels.util.ConfigUtil;
 import io.github.dinty1.easychannels.util.MessageUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,15 +27,18 @@ public class Channel {
 
     @SuppressWarnings("unchecked")
     public Channel(Map<String, ?> channelInfo) throws InvalidChannelException {
+        // Validate
+        final Set<String> missingConfigFields = ConfigUtil.findMissingChannelOptions(channelInfo);
+        if (missingConfigFields.size() > 0) {
+            throw new InvalidChannelException(String.format("Could not load channel: Missing one or more required options (%s)", String.join(", ", missingConfigFields)));
+        }
         this.name = channelInfo.get("name").toString();
         this.commands = (List<String>) channelInfo.get("commands");
         this.permission = channelInfo.get("permission") != null ? "easychannels." + channelInfo.get("permission").toString() : null;
         this.format = channelInfo.get("format").toString();
         this.discordFormat = channelInfo.get("discord-format") != null ? channelInfo.get("discord-format").toString() : null;
         this.range = channelInfo.get("range") == null || Integer.parseInt(channelInfo.get("range").toString()) < 1 ? 0 : Integer.parseInt(channelInfo.get("range").toString());
-        if (this.name == null || this.commands == null || this.format == null || this.commands.size() < 1) {
-            throw new InvalidChannelException("One of the required channel options is null (or empty).");
-        } else if (this.name.equals("global")) {
+        if (this.name.equals("global")) {
             throw new InvalidChannelException("Custom channels cannot be named \"global\"");
         }
     }
