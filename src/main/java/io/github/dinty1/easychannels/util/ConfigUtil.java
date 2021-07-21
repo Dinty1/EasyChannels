@@ -119,7 +119,7 @@ public class ConfigUtil {
         }
 
         public String replaceChannelPlaceholder(String replacement) {
-            return this.toString().replace("%channel%", "global");
+            return this.toString().replace("%channel%", replacement);
         }
 
         public boolean isBlank() {
