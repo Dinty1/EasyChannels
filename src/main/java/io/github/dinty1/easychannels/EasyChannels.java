@@ -92,11 +92,6 @@ public class EasyChannels extends JavaPlugin {
         getLogger().info("Enabled!");
     }
 
-    @Override
-    public void onDisable() {
-
-    }
-
     public static void info(String message) {
         EasyChannels.getPlugin(EasyChannels.class).getLogger().info(message);
     }
