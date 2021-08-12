@@ -20,7 +20,7 @@
  * END
  */
 
-package io.github.dinty1.easychannels.object;
+package io.github.dinty1.easychannels.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

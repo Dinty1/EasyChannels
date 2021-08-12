@@ -26,7 +26,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import io.github.dinty1.easychannels.command.*;
 import io.github.dinty1.easychannels.listener.*;
 import io.github.dinty1.easychannels.manager.ChannelManager;
-import io.github.dinty1.easychannels.object.UpdateChecker;
+import io.github.dinty1.easychannels.util.UpdateChecker;
 import io.github.dinty1.easychannels.util.ConfigUtil;
 import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
