@@ -104,7 +104,6 @@ public class Channel {
             String format = this.getDiscordFormat();
             if (format == null || format.equals("")) return; // No format set so go no further
             text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
-            text = MessageUtil.translateCodes(text);
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 if (this.getPermission() != null) {
                     if (!p.hasPermission(this.getPermission())) continue;
