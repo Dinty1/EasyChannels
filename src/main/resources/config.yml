@@ -46,7 +46,7 @@ channels:
 #
 # permission: staffchannel - The permission that users must have to use/read this channel. The full permission will be easychannels.<permission>.
 #
-# format: "&8[&5Staff&8] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
+# format: "&8[&9Staff Chat&8] &7%username%: &r%message%" - The format for messages that are shown when someone chats. Available placeholders:
 #                                               - %username% - The player's username
 #                                               - %displayname% - The player's displayname
 #                                               - %message% - The message
@@ -54,7 +54,7 @@ channels:
 #                                               - %suffix% - The player's suffix
 #                                               - Any PAPI placeholders
 #
-# discord-format: "&8&o[&5&oStaff&8&o] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
+# discord-format: "&8&o[&9&oStaff Chat&8&o] &7%name%: &r%message%" - The format for messages that are sent to this channel from Discord.
 #                                                       If this option is not specified, messages will not be sent or received from Discord.
 #                                                       Available placeholders:
 #                                                     - %name% - The user's displayname
@@ -68,8 +68,8 @@ channels:
 #
 # An example channel is shown below.
   - name: staff
-    commands: [s, staffchat, sc]
+    commands: [s, staffchat, sc]W
     permission: staffchannel
-    format: "&8[&5Staff&8] &7%username%: &r%message%"
-    discord-format: "&8&o[&5&oStaff&8&o] &7%name%: &r%message%"
+    format: "&8[&9Staff Chat&8] &7%username%: &r%message%"
+    discord-format: "&8&o[&9&oStaff Chat&8&o] &7%name%: &r%message%"
     range: -1
