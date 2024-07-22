@@ -30,8 +30,8 @@ import java.lang.reflect.Method;
 public class CommandUtil {
     // Black magic that I copied off some forum
     public static void registerCommand(Command command, Plugin plugin) throws ReflectiveOperationException {
-        Method commandMap = plugin.getServer().getClass().getMethod("getCommandMap", null);
-        Object cmdMap = commandMap.invoke(plugin.getServer(), null);
+        Method commandMap = plugin.getServer().getClass().getMethod("getCommandMap");
+        Object cmdMap = commandMap.invoke(plugin.getServer());
         Method register = cmdMap.getClass().getMethod("register", String.class, Command.class);
         register.invoke(cmdMap, plugin.getName(), command);
     }
