@@ -68,7 +68,7 @@ channels:
 #
 # An example channel is shown below.
   - name: staff
-    commands: [s, staffchat, sc]W
+    commands: [s, staffchat, sc]
     permission: staffchannel
     format: "&8[&9Staff Chat&8] &7%username%: &r%message%"
     discord-format: "&8&o[&9&oStaff Chat&8&o] &7%name%: &r%message%"
