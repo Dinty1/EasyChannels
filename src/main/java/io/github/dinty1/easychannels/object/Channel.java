@@ -8,12 +8,12 @@
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -101,9 +101,17 @@ public class Channel {
         messages.addAll(message.getAttachments().stream().map(Message.Attachment::getUrl).collect(Collectors.toList()));
 
         for (String text : messages) {
+            if (EasyChannels.discordSrvHookEnabled()) { // Respect truncate length
+                final int truncateLength = DiscordSRV.getPlugin().config().getIntElse("DiscordChatChannelTruncateLength", 0);
+                if (truncateLength > 0 && text.length() > truncateLength) {
+                    text = text.substring(0, truncateLength);
+                }
+            }
+
             String format = this.getDiscordFormat();
             if (format == null || format.equals("")) return; // No format set so go no further
             text = MessageUtil.replaceDiscordPlaceholders(format, text, Objects.requireNonNull(message.getMember()));
+
             for (final Player p : Bukkit.getServer().getOnlinePlayers()) {
                 if (this.getPermission() != null) {
                     if (!p.hasPermission(this.getPermission())) continue;
