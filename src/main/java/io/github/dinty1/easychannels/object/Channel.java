@@ -25,6 +25,7 @@ package io.github.dinty1.easychannels.object;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.emoji.EmojiParser;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.Message;
+import github.scarsz.discordsrv.dependencies.jda.api.exceptions.InsufficientPermissionException;
 import io.github.dinty1.easychannels.EasyChannels;
 import io.github.dinty1.easychannels.util.ConfigUtil;
 import io.github.dinty1.easychannels.util.MessageUtil;
@@ -105,6 +106,11 @@ public class Channel {
                 final int truncateLength = DiscordSRV.getPlugin().config().getIntElse("DiscordChatChannelTruncateLength", 0);
                 if (truncateLength > 0 && text.length() > truncateLength) {
                     text = text.substring(0, truncateLength);
+                    try {
+                        message.addReaction("\uD83D\uDCAC").queue(v -> message.addReaction("❗").queue());
+                    } catch (InsufficientPermissionException ignored) {
+
+                    }
                 }
             }
 
